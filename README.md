@@ -1,8 +1,21 @@
-# React + Vite
+### 使用volta作为node版本管理工具
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+volta地址: https://docs.volta.sh/guide/getting-started
 
-Currently, two official plugins are available:
+统一node.js版本为: 18.20.3
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 使用pnpm安装依赖
+
+```bash
+// 安装pnpm
+volta install pnpm
+
+// 安装依赖
+pnpm i
+
+// 启动本地服务
+pnpm dev
+
+// 打包
+pnpm build
+```
