@@ -1,8 +1,20 @@
-### 使用volta作为node版本管理工具
+# React项目开发模板工程
 
-volta地址: https://docs.volta.sh/guide/getting-started
+***
 
-统一node.js版本为: 18.20.3
+## 技术栈
+
+[Vite^5.2.0](https://cn.vitejs.dev/)
+
+[react^18.2.0](https://react.dev/)
+
+[tailwindcss^3.4.4](https://tailwindcss.com/docs)
+
+
+> 使用[volta](https://docs.volta.sh/guide/getting-started)管理Node.js版本
+> 统一node.js版本为: 18.20.3
+
+***
 
 ### 使用pnpm安装依赖
 
