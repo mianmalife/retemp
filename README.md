@@ -1,6 +1,5 @@
 # React项目开发模板工程
 
-***
 
 ## 技术栈
 
@@ -14,7 +13,6 @@
 > 使用[volta](https://docs.volta.sh/guide/getting-started)管理Node.js版本
 > 统一node.js版本为: 18.20.3
 
-***
 
 ### 使用pnpm安装依赖
 
