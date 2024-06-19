@@ -29,3 +29,14 @@ pnpm dev
 // 打包
 pnpm build
 ```
+
+### 目录介绍
+```bash
+src
+  components // 项目公共组件
+  pages // 所有的页面
+  hooks // hooks 类工具方法
+  utils.js // 普通工具方法
+  api.js // 公告请求
+  router.js // 路由配置
+```
