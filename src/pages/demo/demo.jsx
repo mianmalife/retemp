@@ -1,5 +1,5 @@
 import Button from '../../components/Button'
-
+import { Icon } from '@iconify/react';
 const clx = 'flex justify-center text-3xl font-bold text-[#333] hover:text-pink-500'
 function Demo() {
   return (
@@ -12,6 +12,9 @@ function Demo() {
       <Button type='danger' size='lg'>Danger</Button>
       <Button type='primary'>Primary</Button>
       <Button type='success' size='sm'>Success</Button>
+      <Icon icon="mdi-light:home" width={30} height={30} color='green' />
+      <Icon icon="svg-spinners:180-ring" width={30} height={30} />
+      <Icon icon="svg-spinners:blocks-shuffle-2" width={30} height={30} />
     </>
   )
 }
