@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useReducer, Suspense, lazy } from "react"
+import { v4 as uuidv4 } from 'uuid'
 import TaskItem from "./TaskItem"
 import BirdTabItem from "./BirdTabItem"
 import BirdList from './BirdList'
@@ -15,16 +16,16 @@ function reducer(state, action) {
   switch (action.type) {
     case 'add': {
       const { task } = action.payload
-      return [...state, { name: task, isComplete: false }]
+      return [...state, { name: task, isComplete: false, id: uuidv4() }]
     }
     case 'delete': {
       const { id } = action.payload
-      return state.filter((item, idx) => idx !== id)
+      return state.filter((item) => item.id !== id)
     }
     case 'complete': {
       const { id } = action.payload
-      return state.map((item, idx) => {
-        if (idx === id) {
+      return state.map((item) => {
+        if (item.id === id) {
           return {
             ...item,
             isComplete: !item.isComplete
@@ -73,11 +74,11 @@ function Demo() {
   function handleTask(e) {
     setTask(e.target.value)
   }
-  function handleDelete(index) {
-    dispatch({ type: 'delete', payload: { id: index } })
+  function handleDelete(id) {
+    dispatch({ type: 'delete', payload: { id } })
   }
-  function handleComplete(index) {
-    dispatch({ type: 'complete', payload: { id: index } })
+  function handleComplete(id) {
+    dispatch({ type: 'complete', payload: { id } })
   }
   function handleTabItem(name) {
     setActive(name)
@@ -94,8 +95,8 @@ function Demo() {
           ref={taskInputRef} />
         <ul className="text-sm divide-y divide-slate-100">
           {
-            taskList.map((item, index) => (
-              <TaskItem listItem={item} index={index} key={index} handleComplete={handleComplete} handleDelete={handleDelete} />
+            taskList.map((item) => (
+              <TaskItem listItem={item} id={item.id} key={item.id} handleComplete={handleComplete} handleDelete={handleDelete} />
             ))
           }
         </ul>
