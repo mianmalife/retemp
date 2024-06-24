@@ -84,8 +84,8 @@ function Demo() {
     setActive(name)
   }
   return (
-    <div className="m-5 flex">
-      <div>
+    <div className="flex flex-col m-2 gap-y-2">
+      <div className="shadow-sm hover:shadow-xl transition-all rounded-md border border-gray-100 p-2">
         <input type="text"
           className="text-sm w-80 h-10 mb-4 border-[1px] px-3 outline-none border-gray-300 rounded-md bg-white hover:border-blue-100 focus:border-blue-100 active:border-blue-300"
           placeholder="新增一个任务"
@@ -101,11 +101,11 @@ function Demo() {
           }
         </ul>
       </div>
-      <div>
+      <div className="shadow-sm hover:shadow-xl transition-all rounded-md border border-gray-100 p-2">
         <ul className="flex items-center fsizes-14">
           {group.map(item => <BirdTabItem key={item} item={item} active={active} handleTabItem={handleTabItem} />)}
         </ul>
-        {!loading ? <ul className="ml-6 divide-y">
+        {!loading ? <ul className="divide-y">
           {/* <Suspense fallback={<Loading />}>
             <LayzBirdList data={birdList} />
           </Suspense> */}
