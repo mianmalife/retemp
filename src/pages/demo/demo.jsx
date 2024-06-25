@@ -40,7 +40,7 @@ function reducer(state, action) {
 
 const group = ['person role', 'animal-bird', 'body', 'objects']
 function Demo() {
-  const [task, setTask] = useState('')
+  const taskRef = useRef('')
   const [taskList, dispatch] = useReducer(reducer, [])
   const [birdList, setBirdList] = useState([])
   const [active, setActive] = useState('person role')
@@ -66,13 +66,11 @@ function Demo() {
   }, [active])
   function handleKeyUp(e) {
     if (e.keyCode === 13) {
-      if (!task.trim()) return
-      dispatch({ type: 'add', payload: { task } })
-      setTask('')
+      if (!taskRef.current.trim()) return
+      dispatch({ type: 'add', payload: { task: taskRef.current } })
+      taskRef.current = ''
+      taskInputRef.current.value = ''
     }
-  }
-  function handleTask(e) {
-    setTask(e.target.value)
   }
   function handleDelete(id) {
     dispatch({ type: 'delete', payload: { id } })
@@ -89,8 +87,7 @@ function Demo() {
         <input type="text"
           className="text-sm w-80 h-10 mb-4 border-[1px] px-3 outline-none border-gray-300 rounded-md bg-white hover:border-blue-100 focus:border-blue-100 active:border-blue-300"
           placeholder="新增一个任务"
-          value={task}
-          onChange={handleTask}
+          onChange={e => taskRef.current = e.target.value}
           onKeyUp={handleKeyUp}
           ref={taskInputRef} />
         <ul className="text-sm divide-y divide-slate-100">
