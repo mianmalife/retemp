@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import TaskItem from "./TaskItem"
 import BirdTabItem from "./BirdTabItem"
 import BirdList from './BirdList'
+import LottieSpin from "../../components/LottieSpin"
 import loadingUrl from './loading.json?url'
 
 // function delayPromise(promise) {
@@ -108,28 +109,10 @@ function Demo() {
             <LayzBirdList data={birdList} />
           </Suspense> */}
           <BirdList data={birdList} />
-        </ul> : <Loading />}
+        </ul> : <LottieSpin path={loadingUrl} />}
       </div>
     </div>
   )
-}
-
-function Loading() {
-  const lottieRef = useRef()
-  const animateRef = useRef()
-  useEffect(() => {
-    animateRef.current = bodymovin.loadAnimation({
-      container: lottieRef.current,
-      path: loadingUrl,
-      renderer: 'canvas',
-      loop: true,
-      autoplay: true,
-    })
-    return () => {
-      animateRef.current?.destroy()
-    }
-  }, [])
-  return <div ref={lottieRef} className="w-[120px] h-[120px]"></div>
 }
 
 export default Demo
