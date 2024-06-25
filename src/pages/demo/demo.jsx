@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import TaskItem from "./TaskItem"
 import BirdTabItem from "./BirdTabItem"
 import BirdList from './BirdList'
+import loadingUrl from './loading.json?url'
 
 // function delayPromise(promise) {
 //   return new Promise((resolve) => {
@@ -44,7 +45,7 @@ function Demo() {
   const [taskList, dispatch] = useReducer(reducer, [])
   const [birdList, setBirdList] = useState([])
   const [active, setActive] = useState('person role')
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const taskInputRef = useRef()
   useEffect(() => {
     taskInputRef.current.focus()
@@ -114,7 +115,21 @@ function Demo() {
 }
 
 function Loading() {
-  return <div>loading...</div>
+  const lottieRef = useRef()
+  const animateRef = useRef()
+  useEffect(() => {
+    animateRef.current = bodymovin.loadAnimation({
+      container: lottieRef.current,
+      path: loadingUrl,
+      renderer: 'canvas',
+      loop: true,
+      autoplay: true,
+    })
+    return () => {
+      animateRef.current?.destroy()
+    }
+  }, [])
+  return <div ref={lottieRef} className="w-[120px] h-[120px]"></div>
 }
 
 export default Demo
