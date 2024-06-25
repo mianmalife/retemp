@@ -1,25 +1,27 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 import { Icon } from '@iconify/react'
 import clsx from 'clsx'
-import { throttle } from 'lodash-es'
+// import { throttle } from 'lodash-es'
 import Demo from "./pages/demo/demo"
+import useScroll from './hook/useScroll'
 
 function App() {
-  const [showBackTop, setShowBackTop] = useState(false)
-  useEffect(() => {
-    const handleScroll = throttle(() => {
-      const scrollTop = document.documentElement.scrollTop
-      setShowBackTop(scrollTop > 100)
-    }, 300)
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  // const [showBackTop, setShowBackTop] = useState(false)
+  const scrollToPx = useScroll()
+  // useEffect(() => {
+  //   const handleScroll = throttle(() => {
+  //     const scrollTop = document.documentElement.scrollTop
+  //     setShowBackTop(scrollTop > 100)
+  //   }, 300)
+  //   window.addEventListener('scroll', handleScroll)
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [])
   function handleScrollTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
-  const IconClassName = clsx(showBackTop ? 'right-4' : 'right-[-100px]', 'ease-out duration-200 flex items-center justify-center cursor-pointer w-12 h-12 bg-white border shadow-sm hover:bg-slate-200 rounded-full fixed right-4 bottom-6')
+  const IconClassName = clsx(scrollToPx > 100 ? 'right-4' : 'right-[-100px]', 'ease-out duration-200 flex items-center justify-center cursor-pointer w-12 h-12 bg-white border shadow-sm hover:bg-slate-200 rounded-full fixed right-4 bottom-6')
   return (
     <>
       <Demo />

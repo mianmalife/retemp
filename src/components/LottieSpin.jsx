@@ -12,7 +12,6 @@ export default function LottieSpin({ path }) {
       autoplay: true,
     })
     return () => {
-      console.log(222)
       animateRef.current.destroy()
     }
   }, [])
