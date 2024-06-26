@@ -1,23 +1,10 @@
-// import { useState, useEffect } from 'react'
 import { Icon } from '@iconify/react'
 import clsx from 'clsx'
-// import { throttle } from 'lodash-es'
 import Demo from "./pages/demo/demo"
 import useScroll from './hook/useScroll'
 
 function App() {
-  // const [showBackTop, setShowBackTop] = useState(false)
   const scrollToPx = useScroll()
-  // useEffect(() => {
-  //   const handleScroll = throttle(() => {
-  //     const scrollTop = document.documentElement.scrollTop
-  //     setShowBackTop(scrollTop > 100)
-  //   }, 300)
-  //   window.addEventListener('scroll', handleScroll)
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll)
-  //   }
-  // }, [])
   function handleScrollTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
