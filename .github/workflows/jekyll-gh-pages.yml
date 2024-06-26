@@ -34,13 +34,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18.20.3
-          cache: 'pnpm'
+          # cache: 'npm'
       - name: install pnpm
         run: npm install -g pnpm@9
       - name: Install dependencies
         run: pnpm i
       - name: Build
-        run: npm run build
+        run: pnpm build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
