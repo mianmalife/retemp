@@ -1,3 +1,4 @@
+# 将静态内容部署到 GitHub Pages 的简易工作流程
 name: Deploy static content to Pages
 
 on:
@@ -29,14 +30,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Node and pnpm
-        uses: pnpm/setup-pnpm@v1
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          version: '9.3.0'
+          node-version: 18.20.3
+          cache: 'pnpm'
+      - name: install pnpm
+        run: npm install -g pnpm@9
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm i
       - name: Build
-        run: pnpm run build
+        run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
