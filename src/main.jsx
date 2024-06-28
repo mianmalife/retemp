@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />
   },
-]);
+], { basename: import.meta.env.VITE_BASE_URL });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
