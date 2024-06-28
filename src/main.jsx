@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />
   },
-], { basename: '/react-template'});
+]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

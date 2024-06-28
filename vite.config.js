@@ -4,7 +4,6 @@ import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/react-template',
   server: {
     host: '0.0.0.0'
   },

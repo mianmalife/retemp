@@ -7,6 +7,8 @@
 
 [react^18.2.0](https://react.dev/)
 
+[react-router^6.24.0](https://react.dev/)
+
 [tailwindcss^3.4.4](https://tailwindcss.com/docs)
 
 
