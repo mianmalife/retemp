@@ -1,4 +1,4 @@
-import Button from '../../components/Button'
+import Button from '@/components/Button'
 import clsx from "clsx"
 
 export default function TaskItem({ listItem, id, handleComplete, handleDelete }) {

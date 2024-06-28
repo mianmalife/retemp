@@ -1,18 +1,10 @@
-import { useState, useEffect, useRef, useReducer, Suspense, lazy } from "react"
+import { useState, useEffect, useRef, useReducer } from "react"
 import { v4 as uuidv4 } from 'uuid'
 import TaskItem from "./TaskItem"
 import BirdTabItem from "./BirdTabItem"
 import BirdList from './BirdList'
 import LottieSpin from "../../components/LottieSpin"
 import loadingUrl from './loading.json?url'
-
-// function delayPromise(promise) {
-//   return new Promise((resolve) => {
-//     setTimeout(() => resolve(), 2000)
-//   }).then(() => promise)
-// }
-
-// const LayzBirdList = lazy(() => delayPromise(import("./BirdList")))
 
 function reducer(state, action) {
   switch (action.type) {
@@ -104,10 +96,7 @@ function Demo() {
         <ul className="flex items-center fsizes-14">
           {group.map(item => <BirdTabItem key={item} item={item} active={active} handleTabItem={handleTabItem} />)}
         </ul>
-        {!loading ? <ul className="divide-y">
-          {/* <Suspense fallback={<Loading />}>
-            <LayzBirdList data={birdList} />
-          </Suspense> */}
+        {!loading ? <ul className="divide-y h-80 overflow-y-auto">
           <BirdList data={birdList} />
         </ul> : <LottieSpin path={loadingUrl} />}
       </div>
