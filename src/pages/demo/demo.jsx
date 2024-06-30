@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef, useReducer } from "react"
+import useFetch from "@/hook/useFetch"
 import { v4 as uuidv4 } from 'uuid'
 import TaskItem from "./TaskItem"
 import BirdTabItem from "./BirdTabItem"
 import BirdList from './BirdList'
+import ErrorComp from "@/components/ErrorComp"
 import LottieSpin from "../../components/LottieSpin"
 import loadingUrl from './loading.json?url'
 
@@ -36,28 +38,12 @@ const group = ['person role', 'animal-bird', 'body', 'objects']
 function Demo() {
   const taskRef = useRef('')
   const [taskList, dispatch] = useReducer(reducer, [])
-  const [birdList, setBirdList] = useState([])
   const [active, setActive] = useState('person role')
-  const [loading, setLoading] = useState(true)
   const taskInputRef = useRef()
+  const {loading, data, error} = useFetch(`https://emojihub.yurace.pro/api/all/group/${active}`)
   useEffect(() => {
     taskInputRef.current.focus()
   }, [])
-  useEffect(() => {
-    const fetchList = async () => {
-      try {
-        setLoading(true)
-        const data = await fetch(`https://emojihub.yurace.pro/api/all/group/${active}`).then(res => res.json())
-        setBirdList(data)
-      } catch (error) {
-        console.warn(error)
-        setBirdList([])
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchList()
-  }, [active])
   function handleKeyUp(e) {
     if (e.keyCode === 13) {
       if (!taskRef.current.trim()) return
@@ -96,9 +82,11 @@ function Demo() {
         <ul className="flex items-center fsizes-14">
           {group.map(item => <BirdTabItem key={item} item={item} active={active} handleTabItem={handleTabItem} />)}
         </ul>
-        {!loading ? <ul className="divide-y h-80 overflow-y-auto">
-          <BirdList data={birdList} />
-        </ul> : <LottieSpin path={loadingUrl} />}
+        {!loading && !error && <ul className="divide-y h-80 overflow-y-auto">
+          <BirdList data={data || []} />
+        </ul>}
+        {!loading && error && <ErrorComp error={error} />}
+        { loading && <LottieSpin path={loadingUrl} />}
       </div>
     </div>
   )
