@@ -1,12 +1,14 @@
 import { useRef, useEffect } from "react"
+import loadData from './loading'
 
-export default function LottieSpin({ path }) {
+export default function LottieSpin() {
   const lottieRef = useRef()
   const animateRef = useRef()
   useEffect(() => {
+    // eslint-disable-next-line no-undef
     animateRef.current = bodymovin.loadAnimation({
       container: lottieRef.current,
-      path,
+      animationData: loadData,
       renderer: 'svg',
       loop: true,
       autoplay: true,

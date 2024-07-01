@@ -1,40 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-export default function useFetch(url, options) {
+export default function useFetch(url) {
   const [data, setData] = useState()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
-  options = options || {}
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const params = useRef({})
   useEffect(() => {
     const controller = new AbortController()
     const fetchData = async () => {
-      if (url) {
-        try {
-          setLoading(true)
-          const response = await fetch(url, {...options, signal: controller.signal})
-          if (response.ok) {
-            const resp = await response.json()
-            setData(resp)
-          } else {
-            setError(response)
-          }
-        } catch (error) {
-          console.warn(error)
-          if (error !== 'cancle ask') {
-            setError(error)
-          }
-        } finally {
-          setLoading(false)
+      try {
+        setLoading(true)
+        const response = await fetch(url, {...params.current, signal: controller.signal})
+        if (response.ok) {
+          const resp = await response.json()
+          setData(resp)
+          setError(null)
+        } else {
+          setError(response)
         }
+      } catch (error) {
+        console.warn(error)
+        if (error.name !== 'AbortError') {
+          setError(error)
+        }
+      } finally {
+        setLoading(false)
       }
     }
     fetchData()
     return () => {
-      controller.abort('cancle ask')
+      !loading && controller.abort()
     }
   }, [url])
   return {
     loading,
+    setParams: p => params.current = p,
     data,
     error
   }

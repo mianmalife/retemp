@@ -6,7 +6,6 @@ import BirdTabItem from "./BirdTabItem"
 import BirdList from './BirdList'
 import ErrorComp from "@/components/ErrorComp"
 import LottieSpin from "../../components/LottieSpin"
-import loadingUrl from './loading.json?url'
 
 function reducer(state, action) {
   switch (action.type) {
@@ -86,7 +85,7 @@ function Demo() {
           <BirdList data={data || []} />
         </ul>}
         {!loading && error && <ErrorComp error={error} />}
-        { loading && <LottieSpin path={loadingUrl} />}
+        { loading && <LottieSpin />}
       </div>
     </div>
   )
