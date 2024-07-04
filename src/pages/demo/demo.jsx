@@ -11,7 +11,7 @@ function reducer(state, action) {
   switch (action.type) {
     case 'add': {
       const { task } = action.payload
-      return [...state, { name: task, isComplete: false, id: uuidv4() }]
+      return [...state, { name: task, isComplete: false, id: uuidv4(), showInput: false }]
     }
     case 'delete': {
       const { id } = action.payload
@@ -24,6 +24,33 @@ function reducer(state, action) {
           return {
             ...item,
             isComplete: !item.isComplete
+          }
+        } else {
+          return item
+        }
+      })
+    }
+    case 'edit': {
+      const { id } = action.payload
+      return state.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            showInput: true
+          }
+        } else {
+          return item
+        }
+      })
+    }
+    case 'sure_edit': {
+      const { id, value } = action.payload
+      return state.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            name: value,
+            showInput: false
           }
         } else {
           return item
@@ -57,6 +84,14 @@ function Demo() {
   function handleComplete(id) {
     dispatch({ type: 'complete', payload: { id } })
   }
+  function handleEdit(id) {
+    dispatch({ type: 'edit', payload: { id } })
+  }
+  function handleSureEdit(id, newValue) {
+    console.log(id, newValue);
+    if (!newValue) return
+    dispatch({ type: 'sure_edit', payload: { id, value: newValue } })
+  }
   function handleTabItem(name) {
     setActive(name)
   }
@@ -72,7 +107,7 @@ function Demo() {
         <ul className="text-sm divide-y divide-slate-100">
           {
             taskList.map((item) => (
-              <TaskItem listItem={item} id={item.id} key={item.id} handleComplete={handleComplete} handleDelete={handleDelete} />
+              <TaskItem listItem={item} id={item.id} key={item.id} handleComplete={handleComplete} handleDelete={handleDelete} handleEdit={handleEdit} handleSureEdit={handleSureEdit} />
             ))
           }
         </ul>
