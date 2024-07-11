@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef, useReducer } from "react"
-import useFetch from "@/hook/useFetch"
 import { v4 as uuidv4 } from 'uuid'
 import TaskItem from "./TaskItem"
 import BirdTabItem from "./BirdTabItem"
 import BirdList from './BirdList'
-import ErrorComp from "@/components/ErrorComp"
 import LottieSpin from "../../components/LottieSpin"
 
 function reducer(state, action) {
@@ -65,11 +63,22 @@ function Demo() {
   const taskRef = useRef('')
   const [taskList, dispatch] = useReducer(reducer, [])
   const [active, setActive] = useState('person role')
+  const [loading, setLoading] = useState(true)
+  const [data, setData] = useState([])
   const taskInputRef = useRef()
-  const {loading, data, error} = useFetch(`https://emojihub.yurace.pro/api/all/group/${active}`)
   useEffect(() => {
     taskInputRef.current.focus()
   }, [])
+  useEffect(() => {
+    const fetchData = () => {
+      setLoading(true)
+      fetch(`https://emojihub.yurace.pro/api/all/group/${active}`).then(res =>res.json()).then(result => {
+        setLoading(false)
+        setData(result)
+      })
+    }
+    fetchData()
+  }, [active])
   function handleKeyUp(e) {
     if (e.keyCode === 13) {
       if (!taskRef.current.trim()) return
@@ -116,10 +125,9 @@ function Demo() {
         <ul className="flex items-center fsizes-14">
           {group.map(item => <BirdTabItem key={item} item={item} active={active} handleTabItem={handleTabItem} />)}
         </ul>
-        {!loading && !error && <ul className="divide-y h-80 overflow-y-auto">
-          <BirdList data={data || []} />
+        {!loading && <ul className="divide-y h-80 overflow-y-auto">
+          <BirdList data={data} />
         </ul>}
-        {!loading && error && <ErrorComp error={error} />}
         { loading && <LottieSpin />}
       </div>
     </div>
