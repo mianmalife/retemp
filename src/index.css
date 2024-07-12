@@ -8,10 +8,13 @@ body {
   --sb-track-color: #ffffff;
   --sb-thumb-color: #c1c1c1;
   --sb-size: 4px;
+  width: 2000px;
+  height: 2000px;
 }
 
 ::-webkit-scrollbar {
-  width: var(--sb-size)
+  width: var(--sb-size);
+  height: var(--sb-size);
 }
 
 ::-webkit-scrollbar-track {
