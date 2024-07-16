@@ -3,7 +3,7 @@ import { throttle } from 'lodash-es'
 
 export default function useScroll() {
   const [scrollTop, setScrollTop] = useState(0)
- 
+
   useEffect(() => {
     const handleScroll = throttle(() => {
       setScrollTop(document.documentElement.scrollTop)
@@ -13,6 +13,6 @@ export default function useScroll() {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
-  
+
   return scrollTop
 }
