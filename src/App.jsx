@@ -1,13 +1,20 @@
 import { useState, useRef } from 'react'
 import Button from "./components/Button";
 import useDebounceFn from "@/hooks/useDebounceFn"
+import useThrottleFn from "@/hooks/useThrottleFn"
 import useMount from './hooks/useMount';
 import useUnmount from './hooks/useUnmont';
 import useEventListener from './hooks/useEventListener';
 import useUnmountedRef from './hooks/useUnmountedRef';
 import useFullScreen from './hooks/useFullscreen';
+import useLockFn from './hooks/useLockFn';
 import { animation } from './utils';
 
+const delay = time => new Promise((resolve) => {
+  setTimeout(() => {
+    resolve()
+  }, time)
+})
 function Counter({ count }) {
   const isLive = useUnmountedRef()
   useMount(() => {
@@ -24,11 +31,11 @@ function App() {
   const runButRef = useRef()
   const fullRef = useRef()
   const countRef = useRef()
-  const { run } = useDebounceFn((p) => {
+  const { run } = useThrottleFn((p) => {
     console.log(p)
     setCount(count + 1)
   }, {
-    wait: 500
+    wait: 1000
   })
   function handleScroll(e) {
     console.log(e)
@@ -47,6 +54,10 @@ function App() {
       countRef.current.textContent = `${value.toFixed(2)}￥`
     })
   }
+  const lockFn = useLockFn(async () => {
+    await delay(2000)
+    console.log('action')
+  })
   return (
     <div>
       {visible && <Counter count={count} />}
@@ -59,6 +70,7 @@ function App() {
         <Button onClick={exitFullscreen} type="primary">exitFullscreen</Button>
         <span ref={countRef}>2999.00￥</span>
         <Button onClick={start}>START</Button>
+        <Button onClick={lockFn}>useLockFn</Button>
       </div>
     </div>
   )
