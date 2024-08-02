@@ -15,7 +15,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    fsizes: createFontSize(12, 50),
+    fsizes: createFontSize(10, 50),
     extend: {},
   },
   plugins: [
