@@ -17,7 +17,7 @@ export default function Calendar() {
     }
     setMonths(monthList)
   })
-  return <div className="grid grid-cols-3 w-[90%] mx-auto mt-5 mb-5 gap-4">
+  return <div className="grid 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 w-[90%] mx-auto mt-5 mb-5 gap-4">
     <MonthItem months={months} />
   </div>
 }
