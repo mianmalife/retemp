@@ -9,10 +9,16 @@ export default function Calendar() {
     const months = d.getMonths();
     let monthList = []
     for (let i = 0; i < months.length; i++) {
-      const weeks = months[i].getWeeks()
+      const weeks = months[i].getWeeks(1)
       monthList[i] = []
+      const len = weeks.length
       for (let j = 0; j < weeks.length; j++) {
-        monthList[i].push(weeks[j].getDays())
+        if (len === 5 && j === len - 1) {
+          monthList[i].push(weeks[j].getDays())
+          monthList[i].push(weeks[j].next(1).getDays())
+        } else {
+          monthList[i].push(weeks[j].getDays())
+        }
       }
     }
     setMonths(monthList)
