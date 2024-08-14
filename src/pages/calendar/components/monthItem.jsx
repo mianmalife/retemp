@@ -30,14 +30,14 @@ export function MonthItem({ months }) {
         <h2 className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-7xl text-gray-300 text-opacity-80 font-bold z-[-1]">{index + 1}月</h2>
         {mon.map((week, idx) => <Fragment key={idx}>
           {week.map((w, isx) => <li key={isx}
-            className={clsx({ 'relative h-10 m-2 rounded-lg': true, 'bg-blue-500': dayjs().format('YYYY-MM-DD') === w.toString() })}>
-            <span className={clsx({ 'text-slate-900': w.getMonth() === index + 1, 'text-slate-400': w.getMonth() !== index + 1, 'font-bold': dayjs().format('YYYY-MM-DD') === w.toString(), 'text-white': dayjs().format('YYYY-MM-DD') === w.toString() })}>{w.getDay()}</span>
-            <i className={clsx({ 'w-[100%] text-clip overflow-hidden whitespace-nowrap absolute bottom-0.5 left-[50%] translate-x-[-50%] text-xs not-italic': true }
+            className={clsx({ 'relative h-10 my-2 rounded-lg': true, 'bg-blue-500/75': dayjs().format('YYYY-MM-DD') === w.toString() })}>
+            <span className={clsx({ 'text-[1em]': true, 'text-slate-900': w.getMonth() === index + 1, 'text-slate-400': w.getMonth() !== index + 1, 'font-bold': dayjs().format('YYYY-MM-DD') === w.toString(), 'text-white': dayjs().format('YYYY-MM-DD') === w.toString() })}>{w.getDay()}</span>
+            <i className={clsx({ 'truncate w-[100%] overflow-hidden whitespace-nowrap absolute bottom-0.5 left-[50%] translate-x-[-50%] text-[0.6em] not-italic': true }
               , { 'text-slate-400': w.getMonth() !== index + 1 }, { 'text-gray-500': w.getMonth() === index + 1 }, { 'text-rose-500': calcFestival(w).festival },
               { 'font-bold': dayjs().format('YYYY-MM-DD') === w.toString(), 'text-white': dayjs().format('YYYY-MM-DD') === w.toString() })}>
               {calcFestival(w).festival || calcFestival(w).dayinchinese}
             </i>
-            <i className={clsx({ 'not-italic absolute top-[-4px] right-[-4px] text-[0.5em] rounded-lg': true }, { 'text-lime-500': isWork(w) === false })}>
+            <i className={clsx({ 'not-italic absolute top-[-4px] right-[4px] text-[0.6em] rounded-lg': true }, { 'text-lime-500': isWork(w) === false })}>
               {isWork(w) === false ? '休' : isWork(w) === true ? '班' : ''}
             </i>
           </li>)}
