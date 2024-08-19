@@ -1,9 +1,7 @@
-import Calendar from "./pages/calendar"
-
 function App() {
   return (
     <>
-      <Calendar />
+      <h1>hello, react</h1>
     </>
   )
 }
